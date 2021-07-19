@@ -10,8 +10,8 @@ public class SegmentController : MonoBehaviour
     void Start()
     {
         var renderer = new MapRenderer(0.03f);
-        renderer.PlotLeg(MockData.GetMassagedJOData(), Color.yellow);
-        renderer.PlotLeg(MockData.GetJOData(), Color.blue, "Tilfeldig");
+        renderer.PlotLeg(MockData.GetMassagedSampleData(), Color.yellow);
+
 
     }
     void Update()

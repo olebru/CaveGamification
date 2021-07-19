@@ -6,7 +6,7 @@ public class MockData
 {
 
 
-    public static List<HeadingDistanceElevation> GetMassagedJOData()
+    public static List<HeadingDistanceElevation> GetMassagedSampleData()
     {
 
         var stickMapData = new List<HeadingDistanceElevation>();
@@ -116,7 +116,7 @@ public class MockData
 
     }
 
-    public static List<HeadingDistanceElevation> GetJOData()
+    public static List<HeadingDistanceElevation> GetSampleData()
     {
         var stickMapData = new List<HeadingDistanceElevation>();
         //stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 0.0f, distance = 0.0f, elevation = 0.0f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
