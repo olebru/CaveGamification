@@ -22,6 +22,18 @@ public class MapRenderer
     private Dictionary<string, Vector3> namedPoints = new Dictionary<string, Vector3>();
 
 
+    public void CreateDimPointLightAt(Vector3 location)
+    {
+
+        GameObject lightGameObject = new GameObject("The Light");
+        Light lightComp = lightGameObject.AddComponent<Light>();
+        lightComp.color = Color.white;
+        lightGameObject.transform.position = location;
+        lightComp.intensity = 0.1f;
+
+
+    }
+
     public void PlotLeg(IEnumerable<HeadingDistanceElevation> data, Color color, string startsAtJunctionID = "default")
     {
         var prev = startsAtJunctionID == "default" ? Vector3.zero : namedPoints[startsAtJunctionID];
@@ -36,6 +48,9 @@ public class MapRenderer
 
 
             var next = PointFromHeadingDistanceAndElevation(prev, leg.headingDegrees, leg.distance, leg.elevation);
+
+            CreateDimPointLightAt(next);
+
             listOfAllPoints.Add(next);
             listOfAllLegs.Add(leg);
             var preNorm = prev.normalized;
@@ -67,23 +82,21 @@ public class MapRenderer
                        CreateCylinderBetweenPoints(listOfAllPoints[i - 1], upPoint, _lineWidth / 2, Color.cyan);
                        CreateCylinderBetweenPoints(listOfAllPoints[i - 1], downPoint, _lineWidth / 2, Color.blue);
 
-                        CreateCylinderBetweenPoints(leftPoint, upPoint, _lineWidth / 2, Color.black);
-                        CreateCylinderBetweenPoints(upPoint, rightPoint, _lineWidth / 2, Color.black);
-                        CreateCylinderBetweenPoints(rightPoint, downPoint, _lineWidth / 2, Color.black);
-                        CreateCylinderBetweenPoints(downPoint, leftPoint, _lineWidth / 2, Color.black);
-                        */
+        */
+
+
+            CreateCylinderBetweenPoints(leftPoint, upPoint, _lineWidth / 2, Color.black);
+            CreateCylinderBetweenPoints(upPoint, rightPoint, _lineWidth / 2, Color.black);
+            CreateCylinderBetweenPoints(rightPoint, downPoint, _lineWidth / 2, Color.black);
+            CreateCylinderBetweenPoints(downPoint, leftPoint, _lineWidth / 2, Color.black);
+
             hvnoData.Add((rightPoint, leftPoint, downPoint, upPoint));
 
         }
 
         for (int i = 1; i < hvnoData.Count; i++)
         {
-            /*
-            CreateCylinderBetweenPoints(hvnoData[i - 1].Item1, hvnoData[i].Item1, _lineWidth / 2, Color.black);
-            CreateCylinderBetweenPoints(hvnoData[i - 1].Item2, hvnoData[i].Item2, _lineWidth / 2, Color.black);
-            CreateCylinderBetweenPoints(hvnoData[i - 1].Item3, hvnoData[i].Item3, _lineWidth / 2, Color.black);
-            CreateCylinderBetweenPoints(hvnoData[i - 1].Item4, hvnoData[i].Item4, _lineWidth / 2, Color.black);
-            */
+
             Vector3[] leftupVerts =
             {
                     hvnoData[i-1].Item2,
@@ -117,10 +130,10 @@ public class MapRenderer
                 };
 
 
-            DrawMesh(leftupVerts);
-            DrawMesh(upRightVerts);
-            DrawMesh(rightDownVerts);
-            DrawMesh(downLeftVerts);
+            DrawInsideAndOutSideMesh(leftupVerts);
+            DrawInsideAndOutSideMesh(upRightVerts);
+            DrawInsideAndOutSideMesh(rightDownVerts);
+            DrawInsideAndOutSideMesh(downLeftVerts);
 
         }
 
@@ -128,18 +141,34 @@ public class MapRenderer
 
     }
 
-    private static void DrawMesh(Vector3[] verts)
+    private static void DrawInsideAndOutSideMesh(Vector3[] verts)
     {
-        var gameObject = new GameObject();
-        int[] triangles =
+
+        int[] trianglesInside =
                    {
             0, 2, 1,
             0, 3, 2
                  };
+
+        int[] trianglesOutSide =
+                    {
+            1,3,0,
+            1, 2, 3
+                 };
+
+        DrawMesh(verts, trianglesInside);
+        // DrawMesh(verts, trianglesOutSide);
+
+    }
+
+    private static void DrawMesh(Vector3[] verts, int[] triangles)
+    {
+        var gameObject = new GameObject();
         MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshRenderer.sharedMaterial = new Material(Shader.Find("Standard"));
 
         MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
+        MeshCollider meshCollider = gameObject.AddComponent<MeshCollider>();
 
         Mesh mesh = new Mesh();
         mesh.Clear();

@@ -116,6 +116,12 @@ public class MockData
 
     }
 
+    public static List<HeadingDistanceElevation> GetMassagedSampleDataFiltered()
+    {
+
+        return GetMassagedSampleData().GetRange(13, GetMassagedSampleData().Count - 13);
+
+    }
     public static List<HeadingDistanceElevation> GetSampleData()
     {
         var stickMapData = new List<HeadingDistanceElevation>();
