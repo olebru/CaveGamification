@@ -36,7 +36,7 @@ public class MockData
         stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 59.85f, distance = 6.18f, elevation = 5.24f, down = 0.0f, up = 1.0f, right = 5.0f, left = 5.0f }); // R 10 to 5
         stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 55.65f, distance = 2.98f, elevation = 5.9f, down = 0.0f, up = 1.5f, right = 5.0f, left = 3.0f });// R 10 to 5
         stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 87.45f, distance = 4.07f, elevation = 6.86f, down = 1.0f, up = 1.0f, right = 5.0f, left = 0.0f });// R 10 to 5
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 103.9f, distance = 6.42f, elevation = 6.68f, down = 2.0f, up = 1.0f, right = 20.0f, left = 0.0f });
+        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 103.9f, distance = 6.42f, elevation = 6.68f, down = 2.0f, up = 1.0f, right = 5.0f, left = 0.0f }); // R 20 to 5
         stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 88.8f, distance = 3.25f, elevation = 6.17f, down = 0.0f, up = 3.0f, right = 3.0f, left = 1.0f });
         stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 71.95f, distance = 1.86f, elevation = 5.55f, down = 0.0f, up = 1.0f, right = 1.0f, left = 1.0f });
         stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 111.25f, distance = 7.27f, elevation = 5.18f, down = 2.0f, up = 1.0f, right = 10.0f, left = 0.0f, EndsAtJunctionID = "Tilfeldig" });

@@ -6,22 +6,40 @@ using System.Collections.Generic;
 public class MapRenderer
 {
     GameObject cylinderPrefab;
-
-
+    List<GameObject> insideMeshes = new List<GameObject>();
+    List<GameObject> outsideMeshes = new List<GameObject>();
+    private bool showingInside = true;
+    private bool showingOutside = true;
+    public void ShowInside(bool show)
+    {
+        if (show != showingInside)
+        {
+            showingInside = show;
+            foreach (var meshGo in insideMeshes)
+            {
+                meshGo.SetActive(show);
+            }
+        }
+    }
+    public void ShowOutSide(bool show)
+    {
+        if (show != showingOutside)
+        {
+            showingOutside = show;
+            foreach (var meshGo in outsideMeshes)
+            {
+                meshGo.SetActive(show);
+            }
+        }
+    }
     public MapRenderer(float lineWidth)
     {
         _lineWidth = lineWidth;
         cylinderPrefab = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         cylinderPrefab.SetActive(false);
-
-
-
     }
-
     private float _lineWidth;
     private Dictionary<string, Vector3> namedPoints = new Dictionary<string, Vector3>();
-
-
     public void CreateDimPointLightAt(Vector3 location)
     {
 
@@ -45,8 +63,6 @@ public class MapRenderer
         listOfAllLegs.Add(data.FirstOrDefault());
         foreach (var leg in data)
         {
-
-
             var next = PointFromHeadingDistanceAndElevation(prev, leg.headingDegrees, leg.distance, leg.elevation);
 
             CreateDimPointLightAt(next);
@@ -59,8 +75,6 @@ public class MapRenderer
             if (!leg.isGap) CreateCylinderBetweenPoints(prev, next, _lineWidth, color);
             prev = next;
         }
-
-
         List<(Vector3, Vector3, Vector3, Vector3)> hvnoData = new List<(Vector3, Vector3, Vector3, Vector3)>();
         for (int i = 2; i < listOfAllPoints.Count; i++)
         {
@@ -76,13 +90,13 @@ public class MapRenderer
             upPoint.y = upPoint.y + listOfAllLegs[i - 1].up;
             var downPoint = listOfAllPoints[i - 1];
             downPoint.y = downPoint.y - listOfAllLegs[i - 1].down;
-            /*
-                       CreateCylinderBetweenPoints(listOfAllPoints[i - 1], leftPoint, _lineWidth / 2, Color.red);
-                       CreateCylinderBetweenPoints(listOfAllPoints[i - 1], rightPoint, _lineWidth / 2, Color.green);
-                       CreateCylinderBetweenPoints(listOfAllPoints[i - 1], upPoint, _lineWidth / 2, Color.cyan);
-                       CreateCylinderBetweenPoints(listOfAllPoints[i - 1], downPoint, _lineWidth / 2, Color.blue);
 
-        */
+            CreateCylinderBetweenPoints(listOfAllPoints[i - 1], leftPoint, _lineWidth / 2, Color.red);
+            CreateCylinderBetweenPoints(listOfAllPoints[i - 1], rightPoint, _lineWidth / 2, Color.green);
+            CreateCylinderBetweenPoints(listOfAllPoints[i - 1], upPoint, _lineWidth / 2, Color.cyan);
+            CreateCylinderBetweenPoints(listOfAllPoints[i - 1], downPoint, _lineWidth / 2, Color.blue);
+
+
 
 
             CreateCylinderBetweenPoints(leftPoint, upPoint, _lineWidth / 2, Color.black);
@@ -91,12 +105,9 @@ public class MapRenderer
             CreateCylinderBetweenPoints(downPoint, leftPoint, _lineWidth / 2, Color.black);
 
             hvnoData.Add((rightPoint, leftPoint, downPoint, upPoint));
-
         }
-
         for (int i = 1; i < hvnoData.Count; i++)
         {
-
             Vector3[] leftupVerts =
             {
                     hvnoData[i-1].Item2,
@@ -104,7 +115,6 @@ public class MapRenderer
                     hvnoData[i].Item4,
                     hvnoData[i-1].Item4
                 };
-
             Vector3[] upRightVerts =
             {
                     hvnoData[i].Item1,
@@ -112,7 +122,6 @@ public class MapRenderer
                     hvnoData[i-1].Item4,
                     hvnoData[i].Item4
                 };
-
             Vector3[] rightDownVerts =
             {
                     hvnoData[i].Item3,
@@ -120,7 +129,6 @@ public class MapRenderer
                     hvnoData[i-1].Item1,
                     hvnoData[i].Item1
                 };
-
             Vector3[] downLeftVerts =
             {
                     hvnoData[i-1].Item3,
@@ -128,20 +136,14 @@ public class MapRenderer
                     hvnoData[i].Item2,
                     hvnoData[i-1].Item2
                 };
-
-
             DrawInsideAndOutSideMesh(leftupVerts);
             DrawInsideAndOutSideMesh(upRightVerts);
             DrawInsideAndOutSideMesh(rightDownVerts);
             DrawInsideAndOutSideMesh(downLeftVerts);
-
         }
-
-
-
+        ShowOutSide(false);
     }
-
-    private static void DrawInsideAndOutSideMesh(Vector3[] verts)
+    private void DrawInsideAndOutSideMesh(Vector3[] verts)
     {
 
         int[] trianglesInside =
@@ -153,15 +155,14 @@ public class MapRenderer
         int[] trianglesOutSide =
                     {
             1,3,0,
-            1, 2, 3
+            1,2,3
                  };
 
-        DrawMesh(verts, trianglesInside);
-        // DrawMesh(verts, trianglesOutSide);
+        insideMeshes.Add(DrawMesh(verts, trianglesInside));
+        outsideMeshes.Add(DrawMesh(verts, trianglesOutSide));
 
     }
-
-    private static void DrawMesh(Vector3[] verts, int[] triangles)
+    private GameObject DrawMesh(Vector3[] verts, int[] triangles)
     {
         var gameObject = new GameObject();
         MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
@@ -177,13 +178,12 @@ public class MapRenderer
         mesh.Optimize();
         mesh.RecalculateNormals();
         meshFilter.mesh = mesh;
+        return gameObject;
     }
-
     Vector3 PointFromHeadingDistanceAndElevation(Vector3 origin, float heading, float distance, float elevation)
     {
 
         var result = new Vector3();
-        //a2 + b2 = c2 -> distance2 = elevationDelta2 + 
         var elevationDeltaY = elevation - origin.y;
         var flatDistance = Mathf.Sqrt((distance * distance) - (elevationDeltaY * elevationDeltaY));
         float angle = heading * Mathf.PI / 180f;
@@ -205,6 +205,5 @@ public class MapRenderer
         cylinder.transform.localScale = scale;
         var cylinderRenderer = cylinder.GetComponent<Renderer>();
         cylinderRenderer.material.SetColor("_Color", color);
-
     }
 }
