@@ -12,27 +12,9 @@ public class MockData
         var stickMapData = new List<HeadingDistanceElevation>();
 
 
-        //stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 0.0f, distance = 0.0f, elevation = 0.0f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 59.05f, distance = 12.64f, elevation = -0.14f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 347.6f, distance = 11.48f, elevation = -0.07f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 309.45f, distance = 2.48f, elevation = -0.08f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 321.65f, distance = 15.03f, elevation = -0.08f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 44.25f, distance = 3.53f, elevation = -0.13f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 41.75f, distance = 3.06f, elevation = -0.06f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 57.85f, distance = 9.29f, elevation = -0.07f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 28.1f, distance = 4.2f, elevation = -0.08f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 0.1f, distance = 4.3f, elevation = -0.08f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 44.3f, distance = 5.62f, elevation = -0.07f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 307.35f, distance = 10.1f, elevation = -0.07f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 294.5f, distance = 9.93f, elevation = -0.07f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 310.5f, distance = 11.69f, elevation = -0.09f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 318.9f, distance = 1.76f, elevation = -0.06f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 314.8f, distance = 5.0f, elevation = -0.08f, down = 1.0f, up = 30.0f, right = 3.0f, left = 3.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 35.95f, distance = 12.61f, elevation = -0.06f, down = 1.0f, up = 30.0f, right = 3.0f, left = 3.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 43.55f, distance = 8.2f, elevation = 0.06f, down = 1.0f, up = 30.0f, right = 3.0f, left = 3.0f });
-        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 23.05f, distance = 14.7f, elevation = -0.05f, down = 1.0f, up = 30.0f, right = 3.0f, left = 3.0f });
-        //  stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 0.0f, distance = 0.0f, elevation = 0.0f, down = 0.5f, up = 0.5f, right = 20.0f, left = 20.0f });
-        // stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 125.35f, distance = 3.02f, elevation = 1.95f, down = 0.0f, up = 1.0f, right = 1.0f, left = 10.0f }); // H 20 to 1
+
+        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 0.0f, distance = 0.0f, elevation = 0.0f, down = 0.0f, up = 0.0f, right = 0.0f, left = 0.0f }); // UD 0.2 to 0 RL 20 to 0
+        stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 125.35f, distance = 3.02f, elevation = 1.95f, down = 0.0f, up = 1.0f, right = 20.0f, left = 10.0f }); // H 20 to 1
         stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 59.85f, distance = 6.18f, elevation = 5.24f, down = 0.0f, up = 1.0f, right = 5.0f, left = 5.0f }); // R 10 to 5
         stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 55.65f, distance = 2.98f, elevation = 5.9f, down = 0.0f, up = 1.5f, right = 5.0f, left = 3.0f });// R 10 to 5
         stickMapData.Add(new HeadingDistanceElevation { headingDegrees = 87.45f, distance = 4.07f, elevation = 6.86f, down = 1.0f, up = 1.0f, right = 5.0f, left = 0.0f });// R 10 to 5

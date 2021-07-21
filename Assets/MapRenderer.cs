@@ -97,8 +97,6 @@ public class MapRenderer
             CreateCylinderBetweenPoints(listOfAllPoints[i - 1], downPoint, _lineWidth / 2, Color.blue);
 
 
-
-
             CreateCylinderBetweenPoints(leftPoint, upPoint, _lineWidth / 2, Color.black);
             CreateCylinderBetweenPoints(upPoint, rightPoint, _lineWidth / 2, Color.black);
             CreateCylinderBetweenPoints(rightPoint, downPoint, _lineWidth / 2, Color.black);
