@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class MapRenderer
 {
+
+    const float MINHVNOVAL = 0.2f;
     GameObject cylinderPrefab;
     List<GameObject> insideMeshes = new List<GameObject>();
     List<GameObject> outsideMeshes = new List<GameObject>();
@@ -81,19 +83,19 @@ public class MapRenderer
             // CreateCylinderBetweenPoints(listOfAllPoints[i - 2], listOfAllPoints[i], _lineWidth / 2, Color.blue);
 
             Vector3 dir = listOfAllPoints[i] - listOfAllPoints[i - 2];
-            Vector3 right = Vector3.Cross(dir, Vector3.down).normalized * listOfAllLegs[i - 1].right;
-            Vector3 left = Vector3.Cross(dir, Vector3.up).normalized * listOfAllLegs[i - 1].left;
+            Vector3 right = Vector3.Cross(dir, Vector3.down).normalized * (listOfAllLegs[i - 1].right < MINHVNOVAL ? MINHVNOVAL : listOfAllLegs[i - 1].right );
+            Vector3 left = Vector3.Cross(dir, Vector3.up).normalized * (listOfAllLegs[i - 1].left < MINHVNOVAL ? MINHVNOVAL : listOfAllLegs[i - 1].right );
 
             var leftPoint = left + listOfAllPoints[i - 1];
             var rightPoint = right + listOfAllPoints[i - 1];
             var upPoint = listOfAllPoints[i - 1];
-            upPoint.y = upPoint.y + listOfAllLegs[i - 1].up;
+            upPoint.y = upPoint.y + (listOfAllLegs[i - 1].up < MINHVNOVAL ? MINHVNOVAL : listOfAllLegs[i - 1].up );
             var downPoint = listOfAllPoints[i - 1];
-            downPoint.y = downPoint.y - listOfAllLegs[i - 1].down;
+            downPoint.y = downPoint.y - (listOfAllLegs[i - 1].down < MINHVNOVAL ? MINHVNOVAL : listOfAllLegs[i - 1].down );
 
             CreateCylinderBetweenPoints(listOfAllPoints[i - 1], leftPoint, _lineWidth / 2, Color.red);
             CreateCylinderBetweenPoints(listOfAllPoints[i - 1], rightPoint, _lineWidth / 2, Color.green);
-            CreateCylinderBetweenPoints(listOfAllPoints[i - 1], upPoint, _lineWidth / 2, Color.cyan);
+            CreateCylinderBetweenPoints(listOfAllPoints[i - 1], upPoint, _lineWidth / 2, Color.magenta);
             CreateCylinderBetweenPoints(listOfAllPoints[i - 1], downPoint, _lineWidth / 2, Color.blue);
 
 

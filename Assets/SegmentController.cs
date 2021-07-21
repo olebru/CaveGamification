@@ -6,25 +6,25 @@ using System.Linq;
 
 public class SegmentController : MonoBehaviour
 {
-    MapRenderer renderer;
+    MapRenderer maprenderer;
     void Start()
     {
-        renderer = new MapRenderer(0.07f);
-        renderer.PlotLeg(MockData.GetMassagedSampleData(), Color.yellow);
+        maprenderer = new MapRenderer(0.07f);
+        maprenderer.PlotLeg(MockData.GetMassagedSampleData(), Color.yellow);
 
 
     }
     void Update()
     {
         if (Input.GetKey(KeyCode.I))
-            renderer.ShowInside(true);
+            maprenderer.ShowInside(true);
 
         if (Input.GetKey(KeyCode.K))
-            renderer.ShowInside(false);
+            maprenderer.ShowInside(false);
         if (Input.GetKey(KeyCode.O))
-            renderer.ShowOutSide(true);
+            maprenderer.ShowOutSide(true);
 
         if (Input.GetKey(KeyCode.L))
-            renderer.ShowOutSide(false);
+            maprenderer.ShowOutSide(false);
     }
 }

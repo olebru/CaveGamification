@@ -10,5 +10,4 @@ public struct HeadingDistanceElevation
     public float down;
     public float left;
     public float right;
-
 }
